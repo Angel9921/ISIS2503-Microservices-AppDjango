@@ -17,7 +17,7 @@ def check_variable(data):
     return False
 
 def check_place(data):
-    r = requests.get(settings.PATH_VAR, headers={"Accept":"application/json"})
+    r = requests.get(settings.PATH_VAR_PLACES, headers={"Accept":"application/json"})
     places = r.json()
     for place in places:
         if data["place"] == place["name"]:
@@ -33,7 +33,7 @@ def MeasurementCreate(request):
     if request.method == 'POST':
         data = request.body.decode('utf-8')
         data_json = json.loads(data)
-        if check_variable(data_json) == True and check_places(data_json) == True:
+        if check_variable(data_json) == True and check_place(data_json) == True:
             measurement = Measurement()
             measurement.variable = data_json['variable']
             measurement.value = data_json['value']
